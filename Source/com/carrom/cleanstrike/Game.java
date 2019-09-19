@@ -68,9 +68,9 @@ public class Game {
 
             switchTurn = actionMap.get(turnOutput).executeAction(currentPlayer, this);
 
-            new GamePointsCalculator().updateConditionalPoints(currentPlayer, this);
+            new GamePointsCalculator().updateConditionalPoints(currentPlayer, playerMinusPointAllowed);
 
-            gameEnded = new GameStatusChecker().checkGameCompletion(players, board);
+            gameEnded = new GameStatusChecker().hasGameEnded(players, board);
 
             if (switchTurn) {
                 currentPlayer = switchPlayer(currentPlayer, playerIndex);
