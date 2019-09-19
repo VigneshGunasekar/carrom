@@ -1,7 +1,7 @@
-package com.test.carrom.cleanstrike;
+package com.test.carrom.cleanstrike.parameters;
 
 
-import com.carrom.cleanstrike.Player;
+import com.carrom.cleanstrike.parameters.Player;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
