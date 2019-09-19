@@ -34,7 +34,7 @@ public class GameStatusChecker {
             System.out.print(winner.getName() + " won the game. ");
             System.out.print("Final Score: " + players[0].getPoints());
             for (int i = 1; i < players.length; i++) {
-                System.out.println("-" + sortedPlayerList.get(i).getPoints());
+                System.out.println("-" + players[i].getPoints());
             }
             return true;
         } else if (gameStatus == GAME_DRAWN) {
@@ -65,7 +65,7 @@ public class GameStatusChecker {
 
     public boolean isNoCoinOnBoard(CarromBoard board) {
         boolean isNoCoinOnBoard = false;
-        if (board.getBlackCoins() == 0 && !board.isRedCoinOnBoard()) {
+        if (board.getBlackCoins() <= 0 && !board.isRedCoinOnBoard()) {
             isNoCoinOnBoard = true;
         }
         return isNoCoinOnBoard;
