@@ -23,5 +23,7 @@ public class GameConstants {
     public static final int STRIKER_STRIKE_POINT_REDUCTION = 1;
 
     public static final int NO_POCKET_LIMIT = 3;
+    public static final int THREE_NO_POCKET_PENALTY = 1;
     public static final int FOUL_LIMIT = 3;
+    public static final int THREE_FOUL_PENALTY = 1;
 }
