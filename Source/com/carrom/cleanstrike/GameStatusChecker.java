@@ -35,7 +35,7 @@ public class GameStatusChecker {
             System.out.print(leadingScorer.getName() + " won the game. ");
             System.out.print("Final Score: " + players[0].getPoints());
             for (int i = 1; i < players.length; i++) {
-                System.out.println("-" + players[i].getPoints());
+                System.out.print("-" + players[i].getPoints());
             }
             return true;
         } else if (gameStatus == GAME_DRAWN) {
