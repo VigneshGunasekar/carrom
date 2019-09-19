@@ -1,10 +1,10 @@
-package com.carrom.cleanstrike;
+package com.carrom.cleanstrike.parameters;
 
-public class  Board {
+public class CarromBoard {
     private boolean isRedCoinOnBoard;
     private int blackCoins;
 
-    public Board(int noOfBlackCoins) {
+    public CarromBoard(int noOfBlackCoins) {
         isRedCoinOnBoard = true;
         blackCoins = noOfBlackCoins;
     }

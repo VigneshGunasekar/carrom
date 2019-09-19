@@ -1,4 +1,4 @@
-package com.carrom.cleanstrike;
+package com.carrom.cleanstrike.parameters;
 
 public class Player {
 
@@ -56,4 +56,13 @@ public class Player {
         this.fouls = 0;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", points=" + points +
+                ", fouls=" + fouls +
+                ", noPockets=" + noPockets +
+                '}';
+    }
 }
