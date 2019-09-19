@@ -4,6 +4,7 @@ import com.carrom.cleanstrike.parameters.CarromBoard;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 
 public class CarromBoardTest {
 
@@ -44,5 +45,24 @@ public class CarromBoardTest {
         int actual = CarromBoard.getBlackCoins();
 
         assertEquals(actual, expected);
+    }
+
+    @Test
+    public void gameStatus_IsNoCoinOnBoard_returnTrue() {
+        boolean expected = true;
+        CarromBoard board = new CarromBoard(0);
+        board.setRedCoinOnBoard(false);
+
+        boolean actual = board.isBoardEmpty();
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void gameStatus_IsNoCoinOnBoard_returnFalse() {
+        boolean expected = true;
+        CarromBoard board = new CarromBoard(0);
+
+        boolean actual = board.isBoardEmpty();
+        assertNotEquals(actual, expected);
     }
 }

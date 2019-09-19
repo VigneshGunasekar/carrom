@@ -26,11 +26,11 @@ public class GameInitializer {
 
             configurations.load(confFile);
 
-            game.playerMinusPointAllowed = Boolean.getBoolean(configurations.getProperty(GameConstants.MINUS_POINTS_ALLOWED_KEY, "false"));
             noOfBlackCoins = Integer.parseInt(configurations.getProperty(GameConstants.NUMBER_OF_BLACK_COINS_KEY, "9"));
-            game.noOfPlayers = Integer.parseInt(configurations.getProperty(GameConstants.NUMBER_OF_PLAYERS_KEY, "2"));
+            game.setPlayerMinusPointAllowed(Boolean.getBoolean(configurations.getProperty(GameConstants.MINUS_POINTS_ALLOWED_KEY, "false")));
+            game.setNoOfPlayers(Integer.parseInt(configurations.getProperty(GameConstants.NUMBER_OF_PLAYERS_KEY, "2")));
 
-            if (game.noOfPlayers < 2) {
+            if (game.getNoOfPlayers() < 2) {
                 throw new Exception("Number of players can not be less than 2.");
             }
 
@@ -50,11 +50,13 @@ public class GameInitializer {
     }
 
     private void initializeParameters(Game game) {
-        game.board = new CarromBoard(noOfBlackCoins);
-        game.players = new Player[game.noOfPlayers];
-        for (int i = 0; i < game.noOfPlayers; i++) {
-            game.players[i] = new Player("Player " + (i + 1));
+        game.setCarromBoard(new CarromBoard(noOfBlackCoins));
+        Player[] players = new Player[game.getNoOfPlayers()];
+        for (int i = 0; i < game.getNoOfPlayers(); i++) {
+            players[i] = new Player("Player " + (i + 1));
         }
+        game.setPlayers(players);
+        game.setGamePointsCalculator(new GamePointsCalculator(game.isPlayerMinusPointAllowed()));
 
     }
 }

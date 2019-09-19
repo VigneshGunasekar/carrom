@@ -18,20 +18,21 @@ public class GameStatusChecker {
         int gameStatus = GAME_IN_PROGRESS;
 
         ArrayList<Player> sortedPlayerList = sortPlayersOnPoints(players);
-        Player winner = sortedPlayerList.get(sortedPlayerList.size() - 1);
-        Player runner = sortedPlayerList.get(sortedPlayerList.size() - 2);
-        int winnerPoints = winner.getPoints();
-        int runnerPoints = runner.getPoints();
+        Player leadingScorer = sortedPlayerList.get(sortedPlayerList.size() - 1);
+        Player trailingScorer = sortedPlayerList.get(sortedPlayerList.size() - 2);
+        int leadingScorerPoints = leadingScorer.getPoints();
+        int trailingScorerPoints = trailingScorer.getPoints();
 
-        if (isNoCoinOnBoard(board)) {
-            gameStatus = doesPlayerWinOnCoinExhaust(winnerPoints, runnerPoints) ? GAME_WON : GAME_DRAWN;
-        } else if (doesPlayerWin(winnerPoints, runnerPoints)) {
+
+        if (board.isBoardEmpty()) {
+            gameStatus = doesPlayerWinOnCoinExhaust(leadingScorerPoints, trailingScorerPoints) ? GAME_WON : GAME_DRAWN;
+        } else if (doesPlayerWin(leadingScorerPoints, trailingScorerPoints)) {
             gameStatus = GAME_WON;
         }
 
 
         if (gameStatus == GAME_WON) {
-            System.out.print(winner.getName() + " won the game. ");
+            System.out.print(leadingScorer.getName() + " won the game. ");
             System.out.print("Final Score: " + players[0].getPoints());
             for (int i = 1; i < players.length; i++) {
                 System.out.println("-" + players[i].getPoints());
@@ -63,25 +64,17 @@ public class GameStatusChecker {
         return playerList;
     }
 
-    public boolean isNoCoinOnBoard(CarromBoard board) {
-        boolean isNoCoinOnBoard = false;
-        if (board.getBlackCoins() <= 0 && !board.isRedCoinOnBoard()) {
-            isNoCoinOnBoard = true;
-        }
-        return isNoCoinOnBoard;
-    }
-
-    public boolean doesPlayerWinOnCoinExhaust(int winnerPoints, int runnerPoints) {
+    public boolean doesPlayerWinOnCoinExhaust(int leadingScorerPoints, int trailingScorer) {
         boolean playerLeads = false;
-        if ((winnerPoints != runnerPoints) && (winnerPoints >= GameConstants.POINTS_TO_WIN) || (winnerPoints - runnerPoints >= GameConstants.POINT_DIFFERENCE_TO_WIN)) {
+        if ((leadingScorerPoints != trailingScorer) && (leadingScorerPoints >= GameConstants.POINTS_TO_WIN) || (leadingScorerPoints - trailingScorer >= GameConstants.POINT_DIFFERENCE_TO_WIN)) {
             playerLeads = true;
         }
         return playerLeads;
     }
 
-    public boolean doesPlayerWin(int winnerPoints, int runnerPoints) {
+    public boolean doesPlayerWin(int leadingScorerPoints, int trailingScorer) {
         boolean playerWins = false;
-        if ((winnerPoints >= GameConstants.POINTS_TO_WIN) && (winnerPoints - runnerPoints >= GameConstants.POINT_DIFFERENCE_TO_WIN)) {
+        if ((leadingScorerPoints >= GameConstants.POINTS_TO_WIN) && (leadingScorerPoints - trailingScorer >= GameConstants.POINT_DIFFERENCE_TO_WIN)) {
             playerWins = true;
         }
         return playerWins;

@@ -52,25 +52,6 @@ public class GameStatusCheckerTest {
     }
 
     @Test
-    public void gameStatus_IsNoCoinOnBoard_returnTrue() {
-        boolean expected = true;
-        CarromBoard board = new CarromBoard(0);
-        board.setRedCoinOnBoard(false);
-
-        boolean actual = new GameStatusChecker().isNoCoinOnBoard(board);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void gameStatus_IsNoCoinOnBoard_returnFalse() {
-        boolean expected = true;
-        CarromBoard board = new CarromBoard(0);
-
-        boolean actual = new GameStatusChecker().isNoCoinOnBoard(board);
-        assertNotEquals(actual, expected);
-    }
-
-    @Test
     public void gameStatus_DoesPlayerWinOnCoinExhaust_returnTrue() {
         boolean expected = true;
         int winnerPoints = 7;

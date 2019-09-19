@@ -24,4 +24,12 @@ public class CarromBoard {
     public void decreaseBlackCoins(int coinsToRemove) {
         this.blackCoins -= coinsToRemove;
     }
+
+    public boolean isBoardEmpty() {
+        boolean isBoardEmpty = false;
+        if (this.getBlackCoins() <= 0 && !this.isRedCoinOnBoard()) {
+            isBoardEmpty = true;
+        }
+        return isBoardEmpty;
+    }
 }

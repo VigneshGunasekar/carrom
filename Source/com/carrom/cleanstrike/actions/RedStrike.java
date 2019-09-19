@@ -7,9 +7,9 @@ import com.carrom.cleanstrike.parameters.Player;
 public class RedStrike implements GameAction {
     @Override
     public boolean executeAction(Player currentPlayer, Game game) {
-        if (game.board.isRedCoinOnBoard()) {
+        if (game.getCarromBoard().isRedCoinOnBoard()) {
             currentPlayer.increasePoints(GameConstants.RED_STRIKE_POINT);
-            game.board.setRedCoinOnBoard(false);
+            game.getCarromBoard().setRedCoinOnBoard(false);
             currentPlayer.resetNoPockets();
             return true;
         } else {

@@ -13,14 +13,14 @@ public class GamePointsCalculatorTest {
         int playerPoints = 2;
         player.increasePoints(playerPoints);
         int expectedPoints = player.getPoints() - 1;
-        new GamePointsCalculator().reducePlayerPoints(player, 1, true);
+        new GamePointsCalculator(true).reducePlayerPoints(player, 1);
 
         assertEquals(player.getPoints(), expectedPoints);
     }
 
     @Test
     public void pointsCalulator_UpdateConditionalPoints() throws Exception {
-        GamePointsCalculator calculator = new GamePointsCalculator();
+        GamePointsCalculator calculator = new GamePointsCalculator(true);
 
         Player player = new Player("Player 1");
         int playerPoints = 4;
@@ -31,7 +31,7 @@ public class GamePointsCalculatorTest {
         player.incrementNoPocket();
         player.incrementNoPocket();
         player.incrementNoPocket();
-        calculator.updateConditionalPoints(player, true);
+        calculator.updateConditionalPoints(player);
         assertEquals(player.getPoints(), expectedPoints);
         assertEquals(player.getNoPockets(), expectedNoPockets);
 
@@ -42,7 +42,7 @@ public class GamePointsCalculatorTest {
         player.incrementFoul();
         player.incrementFoul();
 
-        calculator.updateConditionalPoints(player, true);
+        calculator.updateConditionalPoints(player);
 
         assertEquals(player.getPoints(), expectedPoints);
         assertEquals(player.getFouls(), expectedFouls);

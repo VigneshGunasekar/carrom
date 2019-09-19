@@ -16,23 +16,60 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
-    public CarromBoard board;
-    public Player players[];
+    private CarromBoard board;
+    private Player players[];
 
-    public int noOfPlayers;
-    public boolean playerMinusPointAllowed;
+    private int noOfPlayers;
+    private boolean playerMinusPointAllowed;
+    private GamePointsCalculator gamePointsCalculator;
 
-    private final Map<Integer, GameAction> actionMap;
+    private static final Map<Integer, GameAction> actionMap;
 
-    public Game() {
-        Map actions = new HashMap<>();
-        actions.put(1, new Strike());
-        actions.put(2, new MultiStrike());
-        actions.put(3, new RedStrike());
-        actions.put(4, new StrikerStrike());
-        actions.put(5, new DefunctCoin());
-        actions.put(6, new NoPocket());
+    static {
+        Map<Integer, GameAction> actions = new HashMap<>();
+        actions.put(GameConstants.STRIKE_ACTION, new Strike());
+        actions.put(GameConstants.MULTI_STRIKE_ACTION, new MultiStrike());
+        actions.put(GameConstants.RED_STRIKE_ACTION, new RedStrike());
+        actions.put(GameConstants.STRIKER_STRIKE_ACTION, new StrikerStrike());
+        actions.put(GameConstants.DEFUNCT_STRIKE_ACTION, new DefunctCoin());
+        actions.put(GameConstants.NO_POCKET_ACTION, new NoPocket());
         actionMap = Collections.unmodifiableMap(actions);
+    }
+
+    public CarromBoard getCarromBoard() {
+        return board;
+    }
+
+    public void setCarromBoard(CarromBoard carromBoard) {
+        board = carromBoard;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    public int getNoOfPlayers() {
+        return noOfPlayers;
+    }
+
+    public void setNoOfPlayers(int noOfPlayers) {
+        this.noOfPlayers = noOfPlayers;
+    }
+
+    public boolean isPlayerMinusPointAllowed() {
+        return playerMinusPointAllowed;
+    }
+
+    public void setPlayerMinusPointAllowed(boolean playerMinusPointAllowed) {
+        this.playerMinusPointAllowed = playerMinusPointAllowed;
+    }
+
+    public GamePointsCalculator getGamePointsCalculator() {
+        return gamePointsCalculator;
+    }
+
+    public void setGamePointsCalculator(GamePointsCalculator gamePointsCalculator) {
+        this.gamePointsCalculator = gamePointsCalculator;
     }
 
     public void startGame() throws Exception {
@@ -48,6 +85,7 @@ public class Game {
         boolean gameEnded = false;
         boolean switchTurn;
 
+        GameStatusChecker gameStatusChecker = new GameStatusChecker();
         while (!gameEnded) {
 
             System.out.print(currentPlayer.getName());
@@ -66,11 +104,12 @@ public class Game {
                 continue;
             }
 
-            switchTurn = actionMap.get(turnOutput).executeAction(currentPlayer, this);
+            GameAction currentTurnGameAction = actionMap.get(turnOutput);
+            switchTurn = currentTurnGameAction.executeAction(currentPlayer, this);
 
-            new GamePointsCalculator().updateConditionalPoints(currentPlayer, playerMinusPointAllowed);
+            gamePointsCalculator.updateConditionalPoints(currentPlayer);
 
-            gameEnded = new GameStatusChecker().hasGameEnded(players, board);
+            gameEnded = gameStatusChecker.hasGameEnded(players, board);
 
             if (switchTurn) {
                 currentPlayer = switchPlayer(currentPlayer, playerIndex);

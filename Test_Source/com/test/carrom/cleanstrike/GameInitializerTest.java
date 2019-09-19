@@ -13,7 +13,7 @@ public class GameInitializerTest {
         GameInitializer initializeGame = new GameInitializer();
         initializeGame.initializeGame(game);
         int expected = 1;
-        int actual = game.noOfPlayers;
+        int actual = game.getNoOfPlayers();
 
         Assert.assertNotEquals(actual, expected);
     }
